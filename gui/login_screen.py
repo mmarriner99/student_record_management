@@ -1,34 +1,36 @@
 # gui/login_screen.py
 
-import ttkbootstrap as tb
-from ttkbootstrap.constants import *
+import tkinter as tk
 from tkinter import messagebox
 from gui.main_screen import MainScreen
 
 class LoginScreen:
     def __init__(self, root):
         self.root = root
-        self.root.title("Login - Student Management")
-        self.root.geometry("300x200")
+        self.root.title("Student Management System - Login")
+        self.root.geometry("300x180")
 
-        self.username_var = tb.StringVar()
-        self.password_var = tb.StringVar()
+        self.username_label = tk.Label(root, text="Username")
+        self.username_label.pack(pady=(20, 5))
+        self.username_entry = tk.Entry(root)
+        self.username_entry.pack()
 
-        tb.Label(root, text="Username").pack(pady=(20, 5))
-        tb.Entry(root, textvariable=self.username_var, width=25).pack()
+        self.password_label = tk.Label(root, text="Password")
+        self.password_label.pack(pady=5)
+        self.password_entry = tk.Entry(root, show="*")
+        self.password_entry.pack()
 
-        tb.Label(root, text="Password").pack(pady=5)
-        tb.Entry(root, textvariable=self.password_var, width=25, show="*").pack()
-
-        tb.Button(root, text="Login", bootstyle=PRIMARY, command=self.authenticate).pack(pady=15)
+        self.login_button = tk.Button(root, text="Login", command=self.authenticate)
+        self.login_button.pack(pady=10)
 
     def authenticate(self):
-        username = self.username_var.get()
-        password = self.password_var.get()
+        username = self.username_entry.get()
+        password = self.password_entry.get()
 
+        # Basic credentials (can be changed or moved to file later)
         if username == "admin" and password == "password":
             self.root.destroy()
-            new_root = tb.Window(themename="darkly")
+            new_root = tk.Tk()
             MainScreen(new_root)
             new_root.mainloop()
         else:
