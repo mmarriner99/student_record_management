@@ -1,0 +1,1 @@
+In order to run application, simply select "Run Code" from main.py in VSCode
